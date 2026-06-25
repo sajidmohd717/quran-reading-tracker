@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Track your Quran reading progress with ease">
+  <meta name="theme-color" content="#2D6A4F">
+  <title>Quran Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+
+    <!-- Header -->
+    <header class="header">
+      <div class="header-inner">
+        <div class="brand">
+          <span class="brand-arabic">قرآن</span>
+          <span class="brand-text">Quran Tracker</span>
+        </div>
+        <button class="btn-icon" id="resetBtn" title="Reset all data" onclick="confirmReset()">⋯</button>
+      </div>
+    </header>
+
+    <!-- Main -->
+    <main class="main">
+
+      <!-- Progress Card -->
+      <div class="progress-card">
+        <div class="ring-wrap">
+          <svg class="ring-svg" viewBox="0 0 120 120">
+            <circle class="ring-track" cx="60" cy="60" r="52"/>
+            <circle class="ring-fill" cx="60" cy="60" r="52" id="ringFill"/>
+          </svg>
+          <div class="ring-center">
+            <div class="ring-page" id="currentPage">0</div>
+            <div class="ring-sub">of 604</div>
+          </div>
+        </div>
+        <div class="progress-details">
+          <h2 class="progress-heading">Your Journey</h2>
+          <p class="progress-note" id="progressNote">Begin your reading below</p>
+          <div class="bar-wrap">
+            <div class="bar-fill" id="barFill"></div>
+          </div>
+          <span class="bar-pct" id="barPct">0% complete</span>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-value" id="statStreak">0</div>
+          <div class="stat-label">🔥 Streak</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="statTotal">0</div>
+          <div class="stat-label">📖 Pages</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="statSessions">0</div>
+          <div class="stat-label">✨ Sessions</div>
+        </div>
+      </div>
+
+      <!-- Log Button -->
+      <button class="btn-log" onclick="openModal()">
+        + Log Reading Session
+      </button>
+
+      <!-- Sessions -->
+      <section>
+        <h3 class="section-title">Recent Sessions</h3>
+        <div class="sessions-list" id="sessionsList"></div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="modal">
+      <div class="modal-header">
+        <h2 class="modal-title">Log Reading Session</h2>
+        <button class="modal-close" onclick="closeModal()">✕</button>
+      </div>
+      <form class="modal-form" id="sessionForm" onsubmit="logSession(event)">
+        <div class="form-group">
+          <label for="sessionDate">Date</label>
+          <input type="date" id="sessionDate" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fromPage">From Page</label>
+            <input type="number" id="fromPage" min="1" max="604" placeholder="1" required>
+          </div>
+          <div class="form-group">
+            <label for="toPage">To Page</label>
+            <input type="number" id="toPage" min="1" max="604" placeholder="10" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="sessionNotes">Notes <span class="optional">(optional)</span></label>
+          <input type="text" id="sessionNotes" placeholder="e.g. Surah Al-Baqarah" maxlength="80">
+        </div>
+        <div class="pages-preview" id="pagesPreview"></div>
+        <button type="submit" class="btn-submit">Save Session</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
